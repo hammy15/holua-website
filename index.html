@@ -44,8 +44,28 @@
     .logo img { 
       height: 40px; 
       width: auto; 
-      background: transparent;
-      mix-blend-mode: multiply;
+      border-radius: 8px;
+      background: #faf8f5;
+    }
+    .logo-link {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      text-decoration: none;
+    }
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 1.3rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+    .logo-group {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 0.7rem;
+      color: var(--charcoal-light);
+      letter-spacing: 0.15em;
     }
     nav ul { display: flex; gap: 2rem; list-style: none; }
     nav a { 
@@ -492,6 +512,24 @@
       text-align: center;
     }
     footer .logo img { height: 60px; margin-bottom: 1.5rem; }
+    .footer-logo {
+      margin-bottom: 1.5rem;
+    }
+    .footer-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 2rem;
+      color: var(--gold-light);
+      letter-spacing: 0.1em;
+    }
+    .footer-logo-group {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: var(--gray-light);
+      letter-spacing: 0.15em;
+      margin-left: 0.5rem;
+    }
     footer .tagline { 
       color: var(--gold-light); 
       font-size: 0.7rem; 
@@ -506,7 +544,9 @@
 <body>
 
 <nav>
-  <div class="logo"><img src="logo-holua.png" alt="HŌLUA GROUP"></div>
+  <a href="#" class="logo-link">
+    <span class="logo-text">HŌLUA</span><span class="logo-group">GROUP</span>
+  </a>
   <ul>
     <li><a href="#pillars">WHAT WE DO</a></li>
     <li><a href="#resorts">MICRO RESORTS</a></li>
@@ -846,7 +886,9 @@
 </section>
 
 <footer>
-  <div class="logo"><img src="logo-holua.png" alt="HŌLUA GROUP"></div>
+  <div class="footer-logo">
+    <span class="footer-logo-text">HŌLUA</span><span class="footer-logo-group">GROUP</span>
+  </div>
   <p class="tagline">LAND · VISION · LEGACY</p>
   <a href="mailto:hello@holuagroup.com">hello@holuagroup.com</a>
   <p class="copy">© 2026 Hōlua Group LLC. All rights reserved.</p>
