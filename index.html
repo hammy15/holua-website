@@ -7,249 +7,540 @@
   <meta name="description" content="Development. Renovation. Hospitality. Micro Resorts. From raw land to unforgettable destinations.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --gold: #b8963f;
-      --gold-light: #d4b366;
-      --black: #0a0a0a;
-      --gray-dark: #1a1a1a;
+      --gold: #9a7b4f;
+      --gold-light: #c4a574;
+      --gold-dark: #6b5536;
+      --cream: #faf8f5;
+      --cream-dark: #f0ebe3;
+      --charcoal: #2c2c2c;
+      --charcoal-light: #4a4a4a;
+      --warm-gray: #8a8278;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--black); color: white; line-height: 1.6; }
-    .display { font-family: 'Cormorant Garamond', serif; font-weight: 300; }
+    body { 
+      font-family: 'DM Sans', sans-serif; 
+      background: var(--cream); 
+      color: var(--charcoal); 
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .serif { font-family: 'Playfair Display', serif; font-weight: 300; }
     img { max-width: 100%; height: auto; }
-    
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 1.5rem 2rem;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
-    }
-    .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .logo img { height: 50px; width: auto; }
-    nav ul { display: flex; gap: 2.5rem; list-style: none; }
-    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; transition: color 0.3s; }
-    nav a:hover { color: var(--gold); }
-    @media (max-width: 900px) { nav ul { display: none; } }
 
-    /* HERO */
-    .hero {
-      min-height: 100vh; position: relative;
-      display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.3), rgba(0,0,0,0.7)),
-                  url('treehouse-night.webp') center/cover no-repeat;
+    /* NAV - Floating glass effect */
+    nav {
+      position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 100; padding: 1rem 2.5rem;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      border-radius: 100px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+      display: flex; align-items: center; gap: 3rem;
     }
-    .hero-content { text-align: center; padding: 2rem; max-width: 1000px; }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 1.5rem; line-height: 1.1; }
-    .hero h1 span { color: var(--gold); }
-    .hero p { font-size: 1.25rem; color: #bbb; max-width: 700px; margin: 0 auto 3rem; }
-    .scroll-cta { display: inline-flex; flex-direction: column; align-items: center; color: var(--gold); text-decoration: none; }
-    .scroll-cta span { font-size: 0.7rem; letter-spacing: 0.3em; margin-bottom: 0.5rem; }
-    .scroll-cta svg { animation: bounce 2s infinite; }
-    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+    .logo img { height: 40px; width: auto; }
+    nav ul { display: flex; gap: 2rem; list-style: none; }
+    nav a { 
+      color: var(--charcoal-light); 
+      text-decoration: none; 
+      font-size: 0.7rem; 
+      letter-spacing: 0.15em;
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+    nav a:hover { color: var(--gold); }
+    @media (max-width: 1000px) { nav ul { display: none; } nav { padding: 0.75rem 1.5rem; } }
+
+    /* HERO - Elegant with image */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 5%;
+      gap: 4rem;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+    }
+    .hero-content { max-width: 600px; }
+    .hero-eyebrow {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--gold-light);
+      border-radius: 50px;
+    }
+    .hero h1 { 
+      font-size: clamp(3rem, 5vw, 4.5rem); 
+      line-height: 1.1; 
+      margin-bottom: 1.5rem;
+      color: var(--charcoal);
+    }
+    .hero h1 em { 
+      font-style: italic; 
+      color: var(--gold);
+      display: block;
+    }
+    .hero p { 
+      font-size: 1.1rem; 
+      color: var(--warm-gray); 
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 1rem;
+      padding: 1rem 2rem;
+      background: var(--charcoal);
+      color: white;
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      border-radius: 50px;
+      transition: all 0.3s;
+    }
+    .hero-cta:hover { background: var(--gold-dark); transform: translateY(-2px); }
+    .hero-cta svg { transition: transform 0.3s; }
+    .hero-cta:hover svg { transform: translateX(4px); }
+    .hero-image {
+      position: relative;
+      border-radius: 300px 300px 20px 20px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.15);
+    }
+    .hero-image img { width: 100%; height: 600px; object-fit: cover; }
+    .hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 10rem 5% 5rem; }
+      .hero-content { max-width: 100%; }
+      .hero p { margin-inline: auto; }
+      .hero-image { border-radius: 20px; max-width: 500px; margin: 0 auto; }
+      .hero-image img { height: 400px; }
+    }
 
     /* SECTIONS */
-    section { padding: 5rem 2rem; }
+    section { padding: 6rem 5%; }
     .container { max-width: 1400px; margin: 0 auto; }
-    
-    /* Section divider */
-    .section-divider {
-      width: 60px; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto 3rem;
-    }
-    
-    /* SECTION HEADERS */
-    .section-header { text-align: center; margin-bottom: 3rem; }
-    .eyebrow { color: var(--gold); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; display: block; margin-bottom: 1rem; }
-    .section-header h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
-    .section-header p { color: #888; max-width: 700px; margin: 0 auto; font-size: 1rem; }
 
-    /* PILLARS - Compact cards */
+    /* Section Headers */
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-header .eyebrow {
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .section-header h2 { 
+      font-size: clamp(2.5rem, 4vw, 3.5rem); 
+      margin-bottom: 1rem;
+      color: var(--charcoal);
+    }
+    .section-header p { 
+      color: var(--warm-gray); 
+      max-width: 600px; 
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    /* PILLARS - Elegant cards */
+    .pillars-section { background: white; }
     .pillars-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
     }
     .pillar-card {
-      background: linear-gradient(145deg, rgba(25,25,25,0.8), rgba(15,15,15,0.4));
-      border: 1px solid #222; border-radius: 12px; overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s;
+      background: var(--cream);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.4s, box-shadow 0.4s;
+      position: relative;
     }
-    .pillar-card:hover { border-color: rgba(184,150,63,0.4); transform: translateY(-4px); }
-    .pillar-card-img { aspect-ratio: 16/9; overflow: hidden; }
-    .pillar-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-    .pillar-card:hover .pillar-card-img img { transform: scale(1.05); }
-    .pillar-card-content { padding: 2rem; }
-    .pillar-card-content h3 { font-size: 1.75rem; margin: 0.25rem 0 1rem; }
-    .pillar-card-content .lead { font-size: 1rem; color: #ccc; margin-bottom: 0.75rem; }
-    .pillar-card-content p { color: #777; font-size: 0.9rem; margin-bottom: 0.5rem; line-height: 1.6; }
-    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
-    .tag { padding: 0.3rem 0.75rem; font-size: 0.6rem; letter-spacing: 0.08em; color: var(--gold); border: 1px solid rgba(184,150,63,0.3); border-radius: 50px; }
-    @media (max-width: 900px) { .pillars-grid { grid-template-columns: 1fr; } }
+    .pillar-card:hover { 
+      transform: translateY(-8px); 
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    .pillar-card-img { 
+      aspect-ratio: 1; 
+      overflow: hidden;
+      position: relative;
+    }
+    .pillar-card-img img { 
+      width: 100%; height: 100%; 
+      object-fit: cover; 
+      transition: transform 0.6s;
+    }
+    .pillar-card:hover .pillar-card-img img { transform: scale(1.08); }
+    .pillar-card-img::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.4));
+    }
+    .pillar-card-content { 
+      padding: 1.5rem;
+      position: relative;
+    }
+    .pillar-card-content .eyebrow {
+      color: var(--gold);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .pillar-card-content h3 { 
+      font-size: 1.5rem; 
+      margin-bottom: 0.75rem;
+      color: var(--charcoal);
+    }
+    .pillar-card-content p { 
+      color: var(--warm-gray); 
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    @media (max-width: 1100px) { .pillars-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .pillars-grid { grid-template-columns: 1fr; } }
 
-    /* RESORTS - Smaller, tighter layout */
-    .resort-card {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
-      margin-bottom: 4rem; align-items: center;
-      padding: 2rem;
-      background: linear-gradient(135deg, rgba(25,25,25,0.6), transparent);
-      border: 1px solid #1a1a1a; border-radius: 12px;
+    /* RESORTS - Magazine style */
+    .resorts-section {
+      background: linear-gradient(180deg, white 0%, var(--cream-dark) 100%);
     }
-    .resort-card:nth-child(even) { grid-template-columns: 1fr 1fr; }
-    .resort-card:nth-child(even) .resort-img { order: 2; }
-    .resort-img { aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; }
-    .resort-img img { width: 100%; height: 100%; object-fit: cover; }
-    .resort-content { padding: 1rem 0; }
-    .resort-content .location { color: var(--gold); font-size: 0.55rem; letter-spacing: 0.2em; }
-    .resort-content h4 { font-size: 2rem; margin: 0.5rem 0 1rem; }
-    .resort-content .desc { color: #aaa; margin-bottom: 1rem; line-height: 1.7; font-size: 0.95rem; }
-    .resort-content .quote { color: #666; font-style: italic; margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--gold); font-size: 0.9rem; }
-    .amenities { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-    .amenity { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: #777; }
-    .amenity::before { content: '◆'; color: var(--gold); font-size: 0.5rem; }
+    .resort-feature {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-bottom: 6rem;
+      padding: 3rem;
+      background: white;
+      border-radius: 30px;
+      box-shadow: 0 10px 60px rgba(0,0,0,0.06);
+    }
+    .resort-feature:nth-child(even) {
+      grid-template-columns: 1fr 1.3fr;
+    }
+    .resort-feature:nth-child(even) .resort-img { order: 2; }
+    .resort-img {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .resort-img img { 
+      width: 100%; 
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+    .resort-img .badge {
+      position: absolute;
+      top: 1.5rem; left: 1.5rem;
+      background: white;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-dark);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .resort-content .location {
+      color: var(--gold);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .resort-content h3 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--charcoal);
+    }
+    .resort-content .desc {
+      color: var(--warm-gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+    .resort-content .quote {
+      font-style: italic;
+      color: var(--charcoal-light);
+      padding-left: 1.5rem;
+      border-left: 3px solid var(--gold-light);
+      margin-bottom: 2rem;
+    }
+    .amenities-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .amenity-tag {
+      padding: 0.4rem 1rem;
+      background: var(--cream);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      color: var(--charcoal-light);
+    }
     @media (max-width: 900px) {
-      .resort-card { grid-template-columns: 1fr !important; padding: 1.5rem; }
-      .resort-card:nth-child(even) .resort-img { order: 0; }
+      .resort-feature { grid-template-columns: 1fr !important; padding: 1.5rem; }
+      .resort-feature:nth-child(even) .resort-img { order: 0; }
+      .resort-content h3 { font-size: 2rem; }
     }
 
     /* RENOVATIONS */
-    .reno-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 4rem; }
-    .reno-card { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 4/3; }
+    .reno-section { background: var(--charcoal); color: white; }
+    .reno-section .section-header h2 { color: white; }
+    .reno-section .section-header p { color: rgba(255,255,255,0.6); }
+    .reno-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .reno-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+    }
     .reno-card img { width: 100%; height: 100%; object-fit: cover; }
-    .reno-card .overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
+    .reno-card .overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    }
     .reno-card h4 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .reno-card p { color: #888; }
-    
-    .properties-header { text-align: center; margin: 4rem 0 2rem; }
-    .properties-header h3 { font-size: 1.5rem; }
-    .properties-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; }
-    .property { background: rgba(30,30,30,0.5); border: 1px solid #333; border-radius: 8px; padding: 1rem; transition: border-color 0.3s; }
-    .property:hover { border-color: var(--gold); }
-    .property img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 1rem; }
-    .property h5 { font-size: 0.85rem; margin-bottom: 0.25rem; }
-    .property .price { color: var(--gold); font-size: 1.1rem; font-weight: 500; }
-    .property .details { color: #666; font-size: 0.75rem; }
+    .reno-card p { color: rgba(255,255,255,0.7); }
+
+    .properties-header { text-align: center; margin: 3rem 0 2rem; }
+    .properties-header h3 { color: white; font-size: 1.75rem; }
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+    .property {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1rem;
+      transition: all 0.3s;
+    }
+    .property:hover { 
+      background: rgba(255,255,255,0.1);
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .property img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+    .property h5 { font-size: 0.85rem; margin-bottom: 0.25rem; color: white; }
+    .property .price { color: var(--gold-light); font-size: 1.1rem; font-weight: 500; }
+    .property .details { color: rgba(255,255,255,0.5); font-size: 0.75rem; }
     @media (max-width: 1100px) { .properties-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 700px) { .properties-grid { grid-template-columns: repeat(2, 1fr); } .reno-grid { grid-template-columns: 1fr; } }
 
     /* HOSPITALITY */
-    .hosp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .hosp-content h2 { font-size: 3rem; margin-bottom: 1.5rem; }
-    .hosp-content > p { color: #888; margin-bottom: 2rem; }
-    .service-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .service-card { padding: 1.5rem; background: rgba(30,30,30,0.3); border-radius: 8px; }
-    .service-card .icon { color: var(--gold); font-size: 1.5rem; margin-bottom: 0.75rem; }
-    .service-card h4 { margin-bottom: 0.5rem; }
-    .service-card p { color: #666; font-size: 0.85rem; }
-    .hosp-img { border-radius: 8px; overflow: hidden; }
-    .hosp-img img { width: 100%; height: auto; }
+    .hosp-section { background: white; }
+    .hosp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hosp-content h2 { font-size: 3rem; margin-bottom: 1rem; color: var(--charcoal); }
+    .hosp-content > p { color: var(--warm-gray); margin-bottom: 2rem; }
+    .service-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .service-card {
+      padding: 1.5rem;
+      background: var(--cream);
+      border-radius: 16px;
+      transition: all 0.3s;
+    }
+    .service-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+    .service-card .icon {
+      width: 50px; height: 50px;
+      background: var(--gold-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .service-card h4 { margin-bottom: 0.5rem; color: var(--charcoal); }
+    .service-card p { color: var(--warm-gray); font-size: 0.85rem; }
+    .hosp-img { border-radius: 20px; overflow: hidden; }
+    .hosp-img img { width: 100%; }
     @media (max-width: 900px) { .hosp-grid { grid-template-columns: 1fr; } }
 
     /* REAL ESTATE */
-    .re-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .re-img { border-radius: 8px; overflow: hidden; }
+    .re-section {
+      background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+    }
+    .re-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .re-img { border-radius: 20px; overflow: hidden; }
     .re-img img { width: 100%; }
-    .re-content h2 { font-size: 3rem; margin-bottom: 1.5rem; }
-    .re-content > p { color: #888; margin-bottom: 2.5rem; }
-    .re-pillars { display: flex; flex-direction: column; gap: 2rem; }
-    .re-pillar { padding-left: 1.5rem; border-left: 2px solid rgba(184,150,63,0.4); }
-    .re-pillar h4 { color: var(--gold); font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .re-pillar p { color: #888; }
+    .re-content h2 { font-size: 3rem; margin-bottom: 1rem; color: var(--charcoal); }
+    .re-content > p { color: var(--warm-gray); margin-bottom: 2rem; }
+    .re-pillars { display: flex; flex-direction: column; gap: 1.5rem; }
+    .re-pillar {
+      padding: 1.5rem;
+      background: white;
+      border-radius: 16px;
+      border-left: 4px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .re-pillar h4 { color: var(--gold-dark); font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .re-pillar p { color: var(--warm-gray); font-size: 0.9rem; }
     @media (max-width: 900px) { .re-grid { grid-template-columns: 1fr; } }
 
     /* CONTACT */
+    .contact-section { background: white; }
     .contact-intro { text-align: center; margin-bottom: 3rem; }
-    .contact-options { max-width: 700px; margin: 0 auto 3rem; }
-    .contact-option {
-      display: flex; align-items: flex-start; gap: 1rem;
-      padding: 1.5rem; background: rgba(30,30,30,0.3);
-      border: 1px solid #333; border-radius: 8px;
-      margin-bottom: 1rem; cursor: pointer; transition: border-color 0.3s;
-      text-align: left; width: 100%;
+    .contact-options { 
+      max-width: 700px; 
+      margin: 0 auto 3rem;
+      display: grid;
+      gap: 1rem;
     }
-    .contact-option:hover { border-color: #555; }
-    .contact-option .arrow { color: var(--gold); font-size: 1.2rem; }
-    .contact-option h4 { margin-bottom: 0.25rem; }
-    .contact-option p { color: #666; font-size: 0.85rem; }
+    .contact-option {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--cream);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: left;
+      width: 100%;
+    }
+    .contact-option:hover { 
+      border-color: var(--gold-light);
+      background: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .contact-option .num {
+      width: 40px; height: 40px;
+      background: var(--gold);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .contact-option h4 { margin-bottom: 0.25rem; color: var(--charcoal); font-size: 1rem; }
+    .contact-option p { color: var(--warm-gray); font-size: 0.85rem; }
+
     .contact-form { max-width: 600px; margin: 0 auto; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     input, textarea {
-      width: 100%; padding: 1rem; margin-bottom: 1rem;
-      background: var(--gray-dark); border: 1px solid #333;
-      border-radius: 8px; color: white; font-family: inherit;
+      width: 100%; padding: 1rem 1.25rem; margin-bottom: 1rem;
+      background: var(--cream); border: 2px solid var(--cream-dark);
+      border-radius: 12px; color: var(--charcoal); font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s;
     }
-    input:focus, textarea:focus { outline: none; border-color: var(--gold); }
+    input:focus, textarea:focus { 
+      outline: none; 
+      border-color: var(--gold-light);
+      background: white;
+    }
+    input::placeholder, textarea::placeholder { color: var(--warm-gray); }
     textarea { min-height: 120px; resize: none; }
     button[type="submit"] {
       width: 100%; padding: 1.25rem;
-      background: var(--gold); color: black;
-      border: none; border-radius: 8px;
+      background: var(--charcoal); color: white;
+      border: none; border-radius: 50px;
       font-weight: 500; letter-spacing: 0.15em;
       text-transform: uppercase; cursor: pointer;
-      transition: background 0.3s;
+      font-size: 0.85rem;
+      transition: all 0.3s;
     }
-    button[type="submit"]:hover { background: var(--gold-light); }
+    button[type="submit"]:hover { background: var(--gold-dark); }
     @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
 
     /* FOOTER */
-    footer { padding: 5rem 2rem; text-align: center; border-top: 1px solid #222; }
-    footer .logo img { height: 60px; margin-bottom: 1.5rem; }
-    footer .tagline { color: var(--gold); font-size: 0.7rem; letter-spacing: 0.3em; margin-bottom: 2rem; }
-    footer a { color: #888; text-decoration: none; }
-    footer a:hover { color: var(--gold); }
-    footer .copy { color: #444; font-size: 0.75rem; margin-top: 3rem; }
+    footer {
+      padding: 4rem 5%;
+      background: var(--charcoal);
+      color: white;
+      text-align: center;
+    }
+    footer .logo img { height: 50px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); }
+    footer .tagline { 
+      color: var(--gold-light); 
+      font-size: 0.7rem; 
+      letter-spacing: 0.3em; 
+      margin-bottom: 1.5rem;
+    }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: var(--gold-light); }
+    footer .copy { color: rgba(255,255,255,0.4); font-size: 0.75rem; margin-top: 2rem; }
   </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-inner">
-    <div class="logo"><img src="logo-dark.png" alt="HŌLUA GROUP"></div>
-    <ul>
-      <li><a href="#pillars">WHAT WE DO</a></li>
-      <li><a href="#resorts">MICRO RESORTS</a></li>
-      <li><a href="#renovations">RENOVATIONS</a></li>
-      <li><a href="#hospitality">HOSPITALITY</a></li>
-      <li><a href="#real-estate">REAL ESTATE</a></li>
-      <li><a href="#contact">PARTNER WITH US</a></li>
-    </ul>
-  </div>
+  <div class="logo"><img src="logo-dark.png" alt="HŌLUA GROUP"></div>
+  <ul>
+    <li><a href="#pillars">WHAT WE DO</a></li>
+    <li><a href="#resorts">MICRO RESORTS</a></li>
+    <li><a href="#renovations">RENOVATIONS</a></li>
+    <li><a href="#hospitality">HOSPITALITY</a></li>
+    <li><a href="#contact">CONNECT</a></li>
+  </ul>
 </nav>
 
 <section class="hero">
   <div class="hero-content">
-    <h1 class="display">We don't build properties.<br><span>We build experiences.</span></h1>
+    <span class="hero-eyebrow">HŌLUA GROUP</span>
+    <h1 class="serif">We don't build properties.<em>We build experiences.</em></h1>
     <p>Development. Renovation. Hospitality. Micro Resorts. From raw land to unforgettable destinations — we create places people remember forever.</p>
-    <a href="#pillars" class="scroll-cta">
-      <span>EXPLORE</span>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <a href="#pillars" class="hero-cta">
+      EXPLORE OUR WORLD
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
+  </div>
+  <div class="hero-image">
+    <img src="hero-light.webp" alt="Luxury treehouse at golden hour">
   </div>
 </section>
 
-<section id="pillars">
+<section id="pillars" class="pillars-section">
   <div class="container">
     <div class="section-header">
-      <span class="eyebrow">What We Do</span>
-      <h2 class="display">Four Pillars of HŌLUA</h2>
-      <p>Every venture we pursue serves a single vision: creating extraordinary places where life feels different. Whether we're transforming tired properties, managing luxury rentals, or building micro resorts — the standard is always the same. Remarkable or nothing.</p>
+      <span class="eyebrow">WHAT WE DO</span>
+      <h2 class="serif">Four Pillars of HŌLUA</h2>
+      <p>Every venture serves a single vision: creating extraordinary places where life feels different.</p>
     </div>
 
     <div class="pillars-grid">
       <div class="pillar-card">
-        <div class="pillar-card-img"><img src="develop-new.webp" alt="Land Development"></div>
+        <div class="pillar-card-img"><img src="develop-new.webp" alt="Development"></div>
         <div class="pillar-card-content">
           <span class="eyebrow">DEVELOPMENT</span>
-          <h3 class="display">Develop</h3>
-          <p class="lead">We find land others overlook. We see potential where others see obstacles.</p>
-          <p>From entitlement through construction, we transform raw land into buildable opportunity.</p>
-          <div class="tags">
-            <span class="tag">Land Acquisition</span>
-            <span class="tag">Entitlement</span>
-            <span class="tag">Site Planning</span>
-            <span class="tag">Infrastructure</span>
-          </div>
+          <h3 class="serif">Develop</h3>
+          <p>We find land others overlook. From entitlement through construction, we transform raw potential into buildable opportunity.</p>
         </div>
       </div>
 
@@ -257,15 +548,8 @@
         <div class="pillar-card-img"><img src="renovate-new.webp" alt="Renovation"></div>
         <div class="pillar-card-content">
           <span class="eyebrow">RENOVATION</span>
-          <h3 class="display">Renovate</h3>
-          <p class="lead">Tired properties reborn. Dated becomes desirable.</p>
-          <p>Complete reimaginations — new floor plans, modern systems, design that maximizes return.</p>
-          <div class="tags">
-            <span class="tag">Full Gut Rehabs</span>
-            <span class="tag">STR Optimization</span>
-            <span class="tag">ADU Conversions</span>
-            <span class="tag">Design-Build</span>
-          </div>
+          <h3 class="serif">Renovate</h3>
+          <p>Dated becomes desirable. Complete reimaginations — new floor plans, modern systems, design that maximizes return.</p>
         </div>
       </div>
 
@@ -273,168 +557,140 @@
         <div class="pillar-card-img"><img src="rent-new.webp" alt="Hospitality"></div>
         <div class="pillar-card-content">
           <span class="eyebrow">HOSPITALITY</span>
-          <h3 class="display">Rent</h3>
-          <p class="lead">Boutique vacation rental management. Where hospitality means something.</p>
-          <p>We curate experiences. Our Oahu rentals consistently outperform market averages.</p>
-          <div class="tags">
-            <span class="tag">Concierge Service</span>
-            <span class="tag">Dynamic Pricing</span>
-            <span class="tag">Premium Staging</span>
-            <span class="tag">24/7 Support</span>
-          </div>
+          <h3 class="serif">Rent</h3>
+          <p>Boutique vacation rental management where hospitality means something. Our Oahu rentals consistently outperform.</p>
         </div>
       </div>
 
       <div class="pillar-card">
-        <div class="pillar-card-img"><img src="treehouse-night.webp" alt="Micro Resorts"></div>
+        <div class="pillar-card-img"><img src="dome-light.webp" alt="Micro Resorts"></div>
         <div class="pillar-card-content">
           <span class="eyebrow">THE VISION</span>
-          <h3 class="display">Micro Resorts</h3>
-          <p class="lead">Experience-driven destinations in unexpected places.</p>
-          <p>Treehouses, geodesic domes, floating cabins. Seven near Boise, one on Oahu's North Shore.</p>
-          <div class="tags">
-            <span class="tag">Treehouses</span>
-            <span class="tag">Geodesic Domes</span>
-            <span class="tag">A-Frames</span>
-            <span class="tag">Floating Cabins</span>
-          </div>
+          <h3 class="serif">Micro Resorts</h3>
+          <p>Experience-driven destinations in unexpected places. Treehouses, domes, floating cabins. Seven near Boise, one in Hawaii.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="resorts" style="background: linear-gradient(180deg, var(--black), #111, var(--black));">
+<section id="resorts" class="resorts-section">
   <div class="container">
     <div class="section-header">
-      <span class="eyebrow">Micro Resorts</span>
-      <h2 class="display">Destinations That Move You</h2>
-      <p>Each location is chosen for what it makes you <em>feel</em>. The architecture, the amenities, the experience — all deliberately designed to transport you somewhere extraordinary. This isn't hospitality. It's transformation.</p>
+      <span class="eyebrow">MICRO RESORTS</span>
+      <h2 class="serif">Destinations That Move You</h2>
+      <p>Each location is chosen for what it makes you <em>feel</em>. This isn't hospitality. It's transformation.</p>
     </div>
 
-    <div class="resort-card">
-      <div class="resort-img"><img src="canopy-new.webp" alt="The Canopy"></div>
+    <div class="resort-feature">
+      <div class="resort-img">
+        <span class="badge">COMING 2027</span>
+        <img src="canopy-new.webp" alt="The Canopy">
+      </div>
       <div class="resort-content">
         <span class="location">MCCALL, IDAHO · PAYETTE NATIONAL FOREST</span>
-        <h4 class="display">The Canopy</h4>
-        <p class="desc">Elevated A-frame treehouses connected by timber walkways through old-growth pines. Each structure is a private sanctuary 30 feet above the forest floor, with floor-to-ceiling glass and private decks that feel like floating in the clouds.</p>
-        <p class="quote">"Wake up to birdsong. Fall asleep to the silence of ancient trees. Remember what stillness feels like."</p>
-        <div class="amenities">
-          <span class="amenity">Private Treehouse Suites</span>
-          <span class="amenity">Forest Spa & Sauna</span>
-          <span class="amenity">Payette Lake Access</span>
-          <span class="amenity">Guided Forest Walks</span>
-          <span class="amenity">Farm-to-Canopy Dining</span>
-          <span class="amenity">Stargazing Platform</span>
+        <h3 class="serif">The Canopy</h3>
+        <p class="desc">Elevated A-frame treehouses connected by timber walkways through old-growth pines. Each structure is a private sanctuary 30 feet above the forest floor.</p>
+        <p class="quote">"Wake up to birdsong. Fall asleep to the silence of ancient trees."</p>
+        <div class="amenities-row">
+          <span class="amenity-tag">Private Suites</span>
+          <span class="amenity-tag">Forest Spa</span>
+          <span class="amenity-tag">Lake Access</span>
+          <span class="amenity-tag">Stargazing</span>
         </div>
       </div>
     </div>
 
-    <div class="resort-card">
-      <div class="resort-img"><img src="stillwater-new.webp" alt="Stillwater"></div>
+    <div class="resort-feature">
+      <div class="resort-img">
+        <span class="badge">COMING 2027</span>
+        <img src="stillwater-new.webp" alt="Stillwater">
+      </div>
       <div class="resort-content">
         <span class="location">CASCADE, IDAHO · CASCADE RESERVOIR</span>
-        <h4 class="display">Stillwater</h4>
-        <p class="desc">Floating tiny homes on crystal mountain water. The Sawtooths reflected in every window. Each cabin drifts gently at anchor, creating a sensation of absolute peace that no land-based structure can replicate.</p>
-        <p class="quote">"Days measured by sunsets. Silence you can feel. The world reduced to water, sky, and you."</p>
-        <div class="amenities">
-          <span class="amenity">Floating Cabins</span>
-          <span class="amenity">Private Kayaks & SUPs</span>
-          <span class="amenity">Dock-Side Dining</span>
-          <span class="amenity">Fishing Excursions</span>
-          <span class="amenity">Mountain View Deck</span>
-          <span class="amenity">Hot Tub Barge</span>
+        <h3 class="serif">Stillwater</h3>
+        <p class="desc">Floating tiny homes on crystal mountain water. The Sawtooths reflected in every window. Each cabin drifts gently at anchor.</p>
+        <p class="quote">"Days measured by sunsets. Silence you can feel."</p>
+        <div class="amenities-row">
+          <span class="amenity-tag">Floating Cabins</span>
+          <span class="amenity-tag">Kayaks & SUPs</span>
+          <span class="amenity-tag">Hot Tub Barge</span>
+          <span class="amenity-tag">Fishing</span>
         </div>
       </div>
     </div>
 
-    <div class="resort-card">
-      <div class="resort-img"><img src="redhorizon-new.webp" alt="Red Horizon"></div>
+    <div class="resort-feature">
+      <div class="resort-img">
+        <span class="badge">COMING 2028</span>
+        <img src="redhorizon-new.webp" alt="Red Horizon">
+      </div>
       <div class="resort-content">
         <span class="location">OWYHEE DESERT, IDAHO · DARK SKY TERRITORY</span>
-        <h4 class="display">Red Horizon</h4>
-        <p class="desc">Geodesic domes on ancient red rock, positioned where light pollution doesn't exist for 100 miles in any direction. Transparent ceiling panels let you watch the Milky Way from your bed — not as a metaphor, as reality.</p>
-        <p class="quote">"The universe isn't somewhere far away. It's right there. Above you. Around you. Part of you."</p>
-        <div class="amenities">
-          <span class="amenity">Panoramic Star Domes</span>
-          <span class="amenity">Natural Hot Springs</span>
-          <span class="amenity">Professional Telescope</span>
-          <span class="amenity">Desert Meditation</span>
-          <span class="amenity">Night Sky Tours</span>
-          <span class="amenity">Off-Grid Luxury</span>
+        <h3 class="serif">Red Horizon</h3>
+        <p class="desc">Geodesic domes on ancient red rock. Transparent ceiling panels let you watch the Milky Way from your bed — not as metaphor, as reality.</p>
+        <p class="quote">"The universe isn't somewhere far away. It's right there. Above you."</p>
+        <div class="amenities-row">
+          <span class="amenity-tag">Star Domes</span>
+          <span class="amenity-tag">Hot Springs</span>
+          <span class="amenity-tag">Telescope</span>
+          <span class="amenity-tag">Night Tours</span>
         </div>
       </div>
     </div>
 
-    <div class="resort-card">
-      <div class="resort-img"><img src="snowline-new.webp" alt="Snowline"></div>
-      <div class="resort-content">
-        <span class="location">SUN VALLEY CORRIDOR, IDAHO · SAWTOOTH RANGE</span>
-        <h4 class="display">Snowline</h4>
-        <p class="desc">Modern alpine chalets perched on powder. Glass walls frame mountains that stretch to infinity. Ski-in, ski-out access means the slopes are an extension of your living room — not a destination you drive to.</p>
-        <p class="quote">"The mountain doesn't care about your schedule. It teaches you to slow down. To notice. To breathe."</p>
-        <div class="amenities">
-          <span class="amenity">Glass A-Frame Chalets</span>
-          <span class="amenity">Ski-In/Ski-Out</span>
-          <span class="amenity">Alpine Spa</span>
-          <span class="amenity">Private Chef Available</span>
-          <span class="amenity">Backcountry Tours</span>
-          <span class="amenity">Fireside Lounge</span>
-        </div>
+    <div class="resort-feature">
+      <div class="resort-img">
+        <span class="badge">FLAGSHIP</span>
+        <img src="hawaii-light.webp" alt="Kai">
       </div>
-    </div>
-
-    <div class="resort-card">
-      <div class="resort-img"><img src="kai-new.webp" alt="Kai"></div>
       <div class="resort-content">
         <span class="location">NORTH SHORE, OAHU · LAIE POINT</span>
-        <h4 class="display">Kai</h4>
-        <p class="desc">Elevated bungalows where the Pacific meets the palms. The legendary waves of the North Shore at your feet. Each structure is positioned for maximum ocean view and designed for the indoor-outdoor living that Hawaii does better than anywhere.</p>
-        <p class="quote">"Hawaii as it was meant to be felt. Before the crowds. Before the rush. Just you, the ocean, and time that moves like water."</p>
-        <div class="amenities">
-          <span class="amenity">Oceanfront Bungalows</span>
-          <span class="amenity">Surf Concierge</span>
-          <span class="amenity">Ocean Spa Treatments</span>
-          <span class="amenity">Farm-to-Table Dining</span>
-          <span class="amenity">Cultural Experiences</span>
-          <span class="amenity">Private Beach Access</span>
+        <h3 class="serif">Kai</h3>
+        <p class="desc">Elevated bungalows where the Pacific meets the palms. The legendary waves of the North Shore at your feet.</p>
+        <p class="quote">"Hawaii as it was meant to be felt. Before the crowds. Before the rush."</p>
+        <div class="amenities-row">
+          <span class="amenity-tag">Oceanfront</span>
+          <span class="amenity-tag">Surf Concierge</span>
+          <span class="amenity-tag">Farm-to-Table</span>
+          <span class="amenity-tag">Beach Access</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="renovations">
+<section id="renovations" class="reno-section">
   <div class="container">
     <div class="section-header">
-      <span class="eyebrow">Transformations</span>
-      <h2 class="display">From Dated to Desirable</h2>
-      <p>We see potential where others see problems. Dated properties with good bones become stunning modern homes. Underperforming rentals become top earners. Every renovation we touch is a complete reimagination — not a surface-level refresh.</p>
+      <span class="eyebrow" style="color: var(--gold-light);">TRANSFORMATIONS</span>
+      <h2 class="serif">From Dated to Desirable</h2>
+      <p>Every renovation is a complete reimagination — not a surface-level refresh.</p>
     </div>
 
     <div class="reno-grid">
       <div class="reno-card">
         <img src="reno-exterior.webp" alt="Exterior Transformation">
         <div class="overlay">
-          <h4 class="display">Complete Exterior Transformation</h4>
+          <h4 class="serif">Exterior Transformation</h4>
           <p>1970s beach house → Modern tropical luxury</p>
         </div>
       </div>
       <div class="reno-card">
         <img src="reno-interior.webp" alt="Interior Transformation">
         <div class="overlay">
-          <h4 class="display">Interior Reimagination</h4>
+          <h4 class="serif">Interior Reimagination</h4>
           <p>Dark & dated → Bright & contemporary</p>
         </div>
       </div>
     </div>
 
     <div class="properties-header">
-      <h3 class="display">Current Opportunities in Laie, Hawaii</h3>
+      <h3 class="serif">Current Opportunities · Laie, Hawaii</h3>
     </div>
     <div class="properties-grid">
       <div class="property">
-        <img src="kai-new.webp" alt="55-431 Iosepa St">
+        <img src="hawaii-light.webp" alt="55-431 Iosepa St">
         <h5>55-431 Iosepa St</h5>
         <div class="price">$974,000</div>
         <div class="details">3 bed · 2 bath · 1,891 sqft</div>
@@ -453,13 +709,13 @@
       </div>
       <div class="property">
         <img src="rent-new.webp" alt="55-249 Kamehameha Hwy">
-        <h5>55-249 Kamehameha Hwy</h5>
+        <h5>55-249 Kamehameha</h5>
         <div class="price">$2,475,000</div>
         <div class="details">3 bed · 3 bath · Ocean View</div>
       </div>
       <div class="property">
         <img src="interior-luxury.webp" alt="55-311 Kamehameha Hwy">
-        <h5>55-311 Kamehameha Hwy</h5>
+        <h5>55-311 Kamehameha</h5>
         <div class="price">$3,350,000</div>
         <div class="details">4 bed · 6 bath · 4,518 sqft</div>
       </div>
@@ -467,33 +723,33 @@
   </div>
 </section>
 
-<section id="hospitality" style="background: #0f0f0f;">
+<section id="hospitality" class="hosp-section">
   <div class="container">
     <div class="hosp-grid">
       <div class="hosp-content">
-        <span class="eyebrow">Hospitality</span>
-        <h2 class="display">Where Service Means Something</h2>
-        <p>We don't just manage vacation rentals. We create hospitality experiences that guests remember for years. Every interaction is intentional. Every detail is deliberate.</p>
+        <span class="eyebrow" style="color: var(--gold);">HOSPITALITY</span>
+        <h2 class="serif">Where Service Means Something</h2>
+        <p>We create hospitality experiences guests remember for years. Every interaction is intentional. Every detail is deliberate.</p>
         <div class="service-cards">
           <div class="service-card">
             <div class="icon">◈</div>
-            <h4>Concierge-Level Service</h4>
-            <p>Personal recommendations and local experiences curated for each guest.</p>
+            <h4>Concierge Service</h4>
+            <p>Personal recommendations curated for each guest.</p>
           </div>
           <div class="service-card">
             <div class="icon">◎</div>
-            <h4>Premium Presentation</h4>
-            <p>Professional staging, fresh flowers, welcome baskets with local specialties.</p>
+            <h4>Premium Staging</h4>
+            <p>Fresh flowers, welcome baskets, first impressions that exceed.</p>
           </div>
           <div class="service-card">
             <div class="icon">◇</div>
-            <h4>24/7 Guest Support</h4>
-            <p>Real humans answering real questions, any hour of day or night.</p>
+            <h4>24/7 Support</h4>
+            <p>Real humans answering real questions, any hour.</p>
           </div>
           <div class="service-card">
             <div class="icon">◆</div>
             <h4>Optimized Returns</h4>
-            <p>Dynamic pricing and operational excellence that outperforms market averages.</p>
+            <p>Dynamic pricing that outperforms market averages.</p>
           </div>
         </div>
       </div>
@@ -504,28 +760,28 @@
   </div>
 </section>
 
-<section id="real-estate">
+<section class="re-section">
   <div class="container">
     <div class="re-grid">
       <div class="re-img">
         <img src="partnership.webp" alt="Real Estate Partnership">
       </div>
       <div class="re-content">
-        <span class="eyebrow">Real Estate Services</span>
-        <h2 class="display">Your Partner at Every Step</h2>
-        <p>Whether you're buying your first investment property, building your portfolio, or managing existing assets — we're with you. Not as agents looking for a commission, but as partners invested in your success.</p>
+        <span class="eyebrow" style="color: var(--gold);">REAL ESTATE</span>
+        <h2 class="serif">Your Partner at Every Step</h2>
+        <p>Not agents looking for a commission — partners invested in your success.</p>
         <div class="re-pillars">
           <div class="re-pillar">
-            <h4 class="display">Buy</h4>
-            <p>Strategic acquisition support. We help you find properties others miss, negotiate deals that make sense, and avoid pitfalls that sink investments.</p>
+            <h4 class="serif">Buy</h4>
+            <p>Strategic acquisition support. Find properties others miss.</p>
           </div>
           <div class="re-pillar">
-            <h4 class="display">Build</h4>
-            <p>From entitlement to construction, we guide you through the development process. Whether it's an ADU or a multi-unit project, we've done it.</p>
+            <h4 class="serif">Build</h4>
+            <p>From entitlement to construction. ADUs to multi-unit.</p>
           </div>
           <div class="re-pillar">
-            <h4 class="display">Rent</h4>
-            <p>Turn your property into a performing asset. Our management services handle everything — you collect returns without the headaches.</p>
+            <h4 class="serif">Rent</h4>
+            <p>Turn your property into a performing asset.</p>
           </div>
         </div>
       </div>
@@ -533,48 +789,41 @@
   </div>
 </section>
 
-<section id="contact">
+<section id="contact" class="contact-section">
   <div class="container">
     <div class="section-header">
-      <span class="eyebrow">Partner With Us</span>
-      <h2 class="display">Let's Build Something Together</h2>
-      <p>Whether you're looking to invest in our vision, need help bringing your own property dreams to life, or want us to manage your vacation rental — we'd like to hear from you. This isn't a pitch deck conversation. It's a real conversation about what's possible.</p>
+      <span class="eyebrow">CONNECT</span>
+      <h2 class="serif">Let's Build Something Together</h2>
+      <p>This isn't a pitch deck conversation. It's a real conversation about what's possible.</p>
     </div>
 
     <div class="contact-options">
       <button class="contact-option">
-        <span class="arrow">→</span>
+        <span class="num">01</span>
         <div>
           <h4>Invest in Micro Resort Development</h4>
           <p>Join us in building the next generation of experiential hospitality</p>
         </div>
       </button>
       <button class="contact-option">
-        <span class="arrow">→</span>
+        <span class="num">02</span>
         <div>
           <h4>Partner on Land Acquisition</h4>
           <p>We find the opportunities — you provide the capital — we split the upside</p>
         </div>
       </button>
       <button class="contact-option">
-        <span class="arrow">→</span>
+        <span class="num">03</span>
         <div>
           <h4>Transform Your Property</h4>
           <p>Full-service renovation that maximizes value and return</p>
         </div>
       </button>
       <button class="contact-option">
-        <span class="arrow">→</span>
+        <span class="num">04</span>
         <div>
           <h4>List Your Vacation Home</h4>
           <p>Boutique management that treats your property like our own</p>
-        </div>
-      </button>
-      <button class="contact-option">
-        <span class="arrow">→</span>
-        <div>
-          <h4>Real Estate Advisory</h4>
-          <p>Strategic guidance for buying, selling, or developing property in Hawaii or Idaho</p>
         </div>
       </button>
     </div>
@@ -585,8 +834,8 @@
         <input type="email" placeholder="Email Address" required>
       </div>
       <input type="tel" placeholder="Phone (optional)">
-      <textarea placeholder="Tell us about your project or how we can help..."></textarea>
-      <button type="submit">Start the Conversation</button>
+      <textarea placeholder="Tell us about your project..."></textarea>
+      <button type="submit">START THE CONVERSATION</button>
     </form>
   </div>
 </section>
