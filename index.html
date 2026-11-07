@@ -37,7 +37,12 @@
     /* SPLASH */
     #splash {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
       background: var(--black);
       display: flex;
       flex-direction: column;
@@ -47,16 +52,15 @@
     }
     
     #splash.hide {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 1.2s ease;
+      display: none !important;
     }
     
     .splash-logo {
-      width: 200px;
-      height: 200px;
+      width: 180px;
+      height: 180px;
       opacity: 0;
       transform: scale(0.8);
+      border-radius: 50%;
     }
     
     .splash-text {
@@ -1493,7 +1497,7 @@ window.addEventListener('load', () => {
     duration: 1,
     delay: 0.8,
     onComplete: () => {
-      document.getElementById('splash').style.display = 'none';
+      document.getElementById('splash').classList.add('hide');
     }
   })
   .from('.hero-content h1', {
