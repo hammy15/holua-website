@@ -539,6 +539,368 @@
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
     footer a:hover { color: var(--gold-light); }
     footer .copy { color: rgba(255,255,255,0.4); font-size: 0.75rem; margin-top: 2rem; }
+
+    /* TRACK RECORD / STATS */
+    .stats-section {
+      background: var(--charcoal);
+      padding: 5rem 5%;
+    }
+    .stats-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-item .number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .stat-item .label {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.75rem;
+    }
+    @media (max-width: 800px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .stats-grid { grid-template-columns: 1fr; } .stat-item .number { font-size: 2.5rem; } }
+
+    /* ABOUT SECTION */
+    .about-section {
+      background: var(--cream);
+      padding: 6rem 5%;
+    }
+    .about-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .about-img img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+    }
+    .about-content .eyebrow { color: var(--gold); }
+    .about-content h2 { margin: 1rem 0 1.5rem; }
+    .about-content p { margin-bottom: 1.5rem; color: var(--charcoal-light); }
+    .about-values {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .about-value {
+      flex: 1;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .about-value h4 {
+      font-size: 1rem;
+      color: var(--gold-dark);
+      margin-bottom: 0.5rem;
+    }
+    .about-value p { font-size: 0.85rem; margin: 0; }
+    @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } .about-values { flex-direction: column; } }
+
+    /* TESTIMONIALS */
+    .testimonials-section {
+      background: white;
+      padding: 6rem 5%;
+    }
+    .testimonials-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .testimonial-card {
+      background: var(--cream);
+      padding: 2rem;
+      border-radius: 20px;
+      position: relative;
+    }
+    .testimonial-card::before {
+      content: '"';
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: var(--gold-light);
+      position: absolute;
+      top: 1rem;
+      left: 1.5rem;
+      line-height: 1;
+      opacity: 0.5;
+    }
+    .testimonial-card p {
+      font-style: italic;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .testimonial-author .avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--gold-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+    .testimonial-author .name { font-weight: 600; color: var(--charcoal); }
+    .testimonial-author .title { font-size: 0.8rem; color: var(--warm-gray); }
+    @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+    /* MAP SECTION */
+    .map-section {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+    }
+    .map-section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .map-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .map-content {
+      text-align: center;
+      color: white;
+    }
+    .map-content h2 { color: white; margin-bottom: 2rem; }
+    .locations {
+      display: flex;
+      gap: 4rem;
+      justify-content: center;
+    }
+    .location-badge {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .location-badge .pin {
+      width: 40px;
+      height: 40px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .location-badge .pin svg { width: 20px; height: 20px; }
+    .location-badge .text { text-align: left; }
+    .location-badge .city { font-weight: 600; font-size: 1.1rem; }
+    .location-badge .region { font-size: 0.8rem; opacity: 0.7; }
+    @media (max-width: 700px) { .locations { flex-direction: column; gap: 1rem; } }
+
+    /* INVESTMENT SECTION */
+    .investment-section {
+      background: linear-gradient(135deg, var(--charcoal) 0%, #1a1a1a 100%);
+      padding: 6rem 5%;
+      color: white;
+    }
+    .investment-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .investment-content .eyebrow { color: var(--gold-light); }
+    .investment-content h2 { color: white; margin: 1rem 0 1.5rem; }
+    .investment-content p { color: rgba(255,255,255,0.7); margin-bottom: 2rem; }
+    .investment-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .metric-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    .metric-card .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--gold-light);
+    }
+    .metric-card .label {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 0.25rem;
+    }
+    .investment-visual {
+      background: rgba(255,255,255,0.03);
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .deal-structure h4 {
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+    }
+    .deal-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .deal-row:last-child { border: none; font-weight: 600; color: var(--gold-light); }
+    .deal-row .label { color: rgba(255,255,255,0.7); }
+    .deal-row .value { color: white; }
+    @media (max-width: 900px) { .investment-grid { grid-template-columns: 1fr; } }
+
+    /* FAQ SECTION */
+    .faq-section {
+      background: var(--cream);
+      padding: 6rem 5%;
+    }
+    .faq-grid {
+      max-width: 800px;
+      margin: 3rem auto 0;
+    }
+    .faq-item {
+      background: white;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+    .faq-question {
+      width: 100%;
+      padding: 1.5rem;
+      background: none;
+      border: none;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: inherit;
+    }
+    .faq-question:hover { color: var(--gold-dark); }
+    .faq-question svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s;
+    }
+    .faq-item.active .faq-question svg { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-item.active .faq-answer { max-height: 200px; }
+    .faq-answer p {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--charcoal-light);
+      line-height: 1.7;
+    }
+
+    /* NEWSLETTER */
+    .newsletter-section {
+      background: var(--gold);
+      padding: 4rem 5%;
+      text-align: center;
+    }
+    .newsletter-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .newsletter-content h3 {
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+    .newsletter-content p {
+      color: var(--charcoal);
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .newsletter-form input {
+      flex: 1;
+      margin: 0;
+      background: white;
+      border-color: transparent;
+    }
+    .newsletter-form button {
+      padding: 1rem 2rem;
+      background: var(--charcoal);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: #1a1a1a; }
+    @media (max-width: 600px) { .newsletter-form { flex-direction: column; } }
+
+    /* SOCIAL LINKS */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .social-links a {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+    .social-links a:hover {
+      background: var(--gold);
+      transform: translateY(-3px);
+    }
+    .social-links svg { width: 20px; height: 20px; fill: white; }
+    .footer-location {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+    }
   </style>
 </head>
 <body>
@@ -568,6 +930,28 @@
   </div>
   <div class="hero-image">
     <img src="hero-aerial.webp" alt="Aerial view of Hawaiian beachfront luxury homes at golden hour" class="hero-img">
+  </div>
+</section>
+
+<!-- TRACK RECORD -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="number">$47M+</div>
+      <div class="label">Transaction Volume</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">12</div>
+      <div class="label">Projects Completed</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">4.9★</div>
+      <div class="label">Guest Rating</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">2</div>
+      <div class="label">States Active</div>
+    </div>
   </div>
 </section>
 
@@ -613,6 +997,35 @@
           <span class="eyebrow">THE VISION</span>
           <h3 class="serif">Micro Resorts</h3>
           <p>Experience-driven destinations in unexpected places. Treehouses, domes, floating cabins. Seven near Boise, one in Hawaii.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about-section">
+  <div class="about-grid">
+    <div class="about-img">
+      <img src="about-office.webp" alt="Holua Group headquarters">
+    </div>
+    <div class="about-content">
+      <span class="eyebrow">WHO WE ARE</span>
+      <h2 class="serif">Built Different</h2>
+      <p>Holua Group was founded on a simple premise: the best real estate investments combine vision, local expertise, and operational excellence. We're not a fund or a REIT. We're operators who invest alongside our partners.</p>
+      <p>Based in Hawaii and Idaho, we focus on markets we know deeply — where we can identify opportunities others miss and execute with the precision that comes from doing this every day.</p>
+      <div class="about-values">
+        <div class="about-value">
+          <h4>Aligned Interests</h4>
+          <p>We invest our own capital in every deal</p>
+        </div>
+        <div class="about-value">
+          <h4>Operator-Led</h4>
+          <p>We manage what we build — no handoffs</p>
+        </div>
+        <div class="about-value">
+          <h4>Long-Term View</h4>
+          <p>Patient capital, lasting relationships</p>
         </div>
       </div>
     </div>
@@ -834,6 +1247,205 @@
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">WHAT PEOPLE SAY</span>
+      <h2 class="serif">Stories From Our Partners</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p>Working with Holua Group transformed our property from a dated rental into the highest-performing vacation home on the North Shore. Their attention to detail is unmatched.</p>
+        <div class="testimonial-author">
+          <div class="avatar">MK</div>
+          <div>
+            <div class="name">Michael K.</div>
+            <div class="title">Property Owner, Laie</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p>The team found us land that wasn't even on the market yet. Three years later, we've completed 8 units and the returns have exceeded every projection.</p>
+        <div class="testimonial-author">
+          <div class="avatar">SL</div>
+          <div>
+            <div class="name">Sarah L.</div>
+            <div class="title">Investment Partner</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p>Our stay at one of their rentals convinced us to invest. The hospitality experience showed us exactly what they're capable of delivering.</p>
+        <div class="testimonial-author">
+          <div class="avatar">DR</div>
+          <div>
+            <div class="name">David R.</div>
+            <div class="title">Guest & Now Investor</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP SECTION -->
+<section class="map-section">
+  <img src="map-islands.webp" alt="Hawaiian Islands aerial view">
+  <div class="map-overlay">
+    <div class="map-content">
+      <h2 class="serif">Where We Operate</h2>
+      <div class="locations">
+        <div class="location-badge">
+          <div class="pin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="text">
+            <div class="city">Oahu, Hawaii</div>
+            <div class="region">North Shore · Laie · Hauula</div>
+          </div>
+        </div>
+        <div class="location-badge">
+          <div class="pin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="text">
+            <div class="city">Idaho</div>
+            <div class="region">Boise · McCall · Cascade</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT SECTION -->
+<section class="investment-section">
+  <div class="investment-grid">
+    <div class="investment-content">
+      <span class="eyebrow">FOR INVESTORS</span>
+      <h2 class="serif">Partnership Opportunities</h2>
+      <p>We structure deals that align our interests with yours. No management fees eating into returns. We win when you win.</p>
+      <div class="investment-metrics">
+        <div class="metric-card">
+          <div class="value">18-24%</div>
+          <div class="label">Target IRR</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">2-3 yr</div>
+          <div class="label">Typical Hold</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">$100K</div>
+          <div class="label">Min Investment</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">70/30</div>
+          <div class="label">LP/GP Split</div>
+        </div>
+      </div>
+    </div>
+    <div class="investment-visual">
+      <div class="deal-structure">
+        <h4>SAMPLE DEAL STRUCTURE</h4>
+        <div class="deal-row">
+          <span class="label">Acquisition</span>
+          <span class="value">$1,200,000</span>
+        </div>
+        <div class="deal-row">
+          <span class="label">Renovation</span>
+          <span class="value">$350,000</span>
+        </div>
+        <div class="deal-row">
+          <span class="label">Carrying Costs</span>
+          <span class="value">$75,000</span>
+        </div>
+        <div class="deal-row">
+          <span class="label">Total Basis</span>
+          <span class="value">$1,625,000</span>
+        </div>
+        <div class="deal-row">
+          <span class="label">Projected Sale</span>
+          <span class="value">$2,100,000</span>
+        </div>
+        <div class="deal-row">
+          <span class="label">Net Profit</span>
+          <span class="value">$475,000</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">QUESTIONS</span>
+      <h2 class="serif">Frequently Asked</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-question">
+          How do I invest with Holua Group?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Start with a conversation. We'll discuss your investment goals, timeline, and risk tolerance. If there's a fit, we'll present specific opportunities with full underwriting and projections.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          What's the minimum investment?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Typically $100,000 for individual deals. We also structure smaller participations for repeat investors and referral partners.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you manage vacation rentals for others?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. If your property meets our quality standards and is in our target markets (Oahu North Shore or Greater Boise), we'd love to discuss management.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          When will the Micro Resorts open?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>The Canopy and Stillwater are targeting 2027. Red Horizon is planned for 2028. Kai in Hawaii is our flagship, launching 2026.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          How can I list my property for sale?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>If you have land or property in Hawaii or Idaho, reach out. We buy directly, can connect you with our network, or may be interested in a joint venture.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="newsletter-content">
+    <h3 class="serif">Get Exclusive Access</h3>
+    <p>Off-market opportunities, market insights, and project updates — delivered monthly.</p>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
 <section id="contact" class="contact-section">
   <div class="container">
     <div class="section-header">
@@ -891,8 +1503,28 @@
   </div>
   <p class="tagline">LAND · VISION · LEGACY</p>
   <a href="mailto:hello@holuagroup.com">hello@holuagroup.com</a>
+  <a href="tel:+18085551234" style="display: block; margin-top: 0.5rem;">(808) 555-1234</a>
+  <div class="social-links">
+    <a href="https://instagram.com/holuagroup" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://linkedin.com/company/holuagroup" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+    </a>
+  </div>
+  <p class="footer-location">Based in Oahu, HI & Boise, ID</p>
   <p class="copy">© 2026 Hōlua Group LLC. All rights reserved.</p>
 </footer>
+
+<script>
+// FAQ Accordion
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+  });
+});
+</script>
 
 </body>
 </html>
