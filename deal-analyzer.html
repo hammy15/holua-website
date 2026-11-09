@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deal Analyzer | Holua Group</title>
+  <style>
+    :root {
+      --cream: #faf8f3;
+      --gold: #b8963f;
+      --charcoal: #1a1a1a;
+      --dark: #0d0d0d;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    header {
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(184,150,63,0.2);
+    }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
+    .back-link { color: var(--cream); text-decoration: none; opacity: 0.7; }
+    .back-link:hover { opacity: 1; }
+    
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 4rem 5% 2rem;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: var(--gold); font-weight: 600; }
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Input Section */
+    .input-section {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 5%;
+    }
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .input-group label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+    }
+    .input-group input, .input-group select {
+      padding: 1rem;
+      border: 1px solid rgba(184,150,63,0.3);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      color: var(--cream);
+      font-size: 1rem;
+    }
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .analyze-btn {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, var(--gold), #d4af37);
+      border: none;
+      border-radius: 8px;
+      color: var(--charcoal);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .analyze-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(184,150,63,0.3);
+    }
+    
+    /* Results Section */
+    .results {
+      display: none;
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 5%;
+    }
+    .results.active { display: block; }
+    
+    /* Phase Indicator */
+    .phase-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .phase {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50px;
+      border: 1px solid rgba(184,150,63,0.2);
+      opacity: 0.4;
+      transition: all 0.3s;
+    }
+    .phase.active {
+      opacity: 1;
+      border-color: var(--gold);
+      background: rgba(184,150,63,0.1);
+    }
+    .phase.complete {
+      opacity: 1;
+      background: rgba(184,150,63,0.2);
+    }
+    .phase-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .phase-name {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.85rem;
+    }
+    
+    /* Verdict Card */
+    .verdict-card {
+      text-align: center;
+      padding: 3rem;
+      background: linear-gradient(135deg, rgba(184,150,63,0.15), rgba(184,150,63,0.05));
+      border: 2px solid var(--gold);
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+    .verdict-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .verdict-text {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .verdict-text.strong-buy { color: #22c55e; }
+    .verdict-text.buy { color: #84cc16; }
+    .verdict-text.maybe { color: #eab308; }
+    .verdict-text.pass { color: #ef4444; }
+    .verdict-action {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+    .verdict-strategy {
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(0,0,0,0.3);
+      border-radius: 50px;
+      display: inline-block;
+      font-weight: 600;
+    }
+    
+    /* Agent Cards */
+    .agents-section {
+      margin: 3rem 0;
+    }
+    .agents-title {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--gold);
+    }
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .agent-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,150,63,0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    .agent-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+    .agent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .agent-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .agent-score {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .agent-bar {
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .agent-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), #d4af37);
+      border-radius: 3px;
+      transition: width 0.5s ease-out;
+    }
+    .agent-verdict {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(184,150,63,0.15);
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .agent-detail {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-top: 0.75rem;
+    }
+    
+    /* Financials */
+    .financials-section {
+      margin: 3rem 0;
+    }
+    .financials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .fin-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,150,63,0.15);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .fin-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.6;
+      margin-bottom: 0.5rem;
+    }
+    .fin-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .fin-value.profit { color: #22c55e; }
+    .fin-value.negative { color: #ef4444; }
+    
+    /* Timeline */
+    .timeline-section {
+      margin: 3rem 0;
+    }
+    .timeline-title {
+      text-align: center;
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      color: var(--gold);
+    }
+    .timeline {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .timeline-phase {
+      display: flex;
+      align-items: center;
+    }
+    .timeline-box {
+      padding: 1rem 1.5rem;
+      background: rgba(184,150,63,0.1);
+      border: 1px solid rgba(184,150,63,0.3);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .timeline-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .timeline-months {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-top: 0.25rem;
+    }
+    .timeline-arrow {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      position: relative;
+    }
+    .timeline-arrow::after {
+      content: '→';
+      position: absolute;
+      right: -5px;
+      top: -10px;
+      color: var(--gold);
+    }
+    
+    /* Risks */
+    .risks-section {
+      margin: 3rem 0;
+    }
+    .risks-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--gold);
+    }
+    .risk-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid;
+      margin-bottom: 0.75rem;
+      border-radius: 0 8px 8px 0;
+    }
+    .risk-item.high { border-color: #ef4444; }
+    .risk-item.medium { border-color: #eab308; }
+    .risk-item.low { border-color: #22c55e; }
+    .risk-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .risk-badge.high { background: rgba(239,68,68,0.2); color: #ef4444; }
+    .risk-badge.medium { background: rgba(234,179,8,0.2); color: #eab308; }
+    .risk-badge.low { background: rgba(34,197,94,0.2); color: #22c55e; }
+    .risk-text {
+      flex: 1;
+      font-size: 0.95rem;
+    }
+    
+    /* Conflicts */
+    .conflicts-section {
+      margin: 3rem 0;
+      padding: 2rem;
+      background: rgba(234,179,8,0.05);
+      border: 1px solid rgba(234,179,8,0.3);
+      border-radius: 12px;
+    }
+    .conflicts-title {
+      font-size: 1.1rem;
+      color: #eab308;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .conflict-item {
+      padding: 1rem;
+      background: rgba(0,0,0,0.2);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+    }
+    .conflict-type {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #eab308;
+      margin-bottom: 0.5rem;
+    }
+    .conflict-resolution {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    
+    /* Training Module */
+    .training-section {
+      margin: 4rem 0;
+      padding: 3rem;
+      background: linear-gradient(135deg, rgba(184,150,63,0.1), rgba(184,150,63,0.02));
+      border-radius: 20px;
+      border: 1px solid rgba(184,150,63,0.2);
+    }
+    .training-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .training-header h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .training-header p {
+      opacity: 0.7;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .step-card {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .step-num {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--gold);
+      opacity: 0.1;
+    }
+    .step-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .step-desc {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 5%;
+      border-top: 1px solid rgba(184,150,63,0.2);
+      margin-top: 4rem;
+    }
+    footer p {
+      opacity: 0.5;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">HŌLUA GROUP</div>
+  <a href="index.html" class="back-link">← Back to Home</a>
+</header>
+
+<section class="hero">
+  <h1>Multi-Agent <span>Deal Analyzer</span></h1>
+  <p>5 specialized AI agents analyze your deal in parallel, then a 6th synthesizes the final recommendation. Inspired by Solvaix MEP design methodology.</p>
+</section>
+
+<section class="input-section">
+  <div class="input-grid">
+    <div class="input-group">
+      <label>Acres</label>
+      <input type="number" id="acres" value="12" step="0.1">
+    </div>
+    <div class="input-group">
+      <label>Asking Price ($)</label>
+      <input type="number" id="price" value="480000" step="10000">
+    </div>
+    <div class="input-group">
+      <label>Zoning</label>
+      <select id="zoning">
+        <option value="R-1">R-1 (2.5 lots/ac)</option>
+        <option value="R-2" selected>R-2 (4 lots/ac)</option>
+        <option value="R-4">R-4 (5 lots/ac)</option>
+        <option value="R-6">R-6 (6 lots/ac)</option>
+        <option value="R-8">R-8 (8 lots/ac)</option>
+        <option value="MU">Mixed Use (5 lots/ac)</option>
+        <option value="AG">Agricultural (rezone req)</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Location</label>
+      <select id="location">
+        <option value="eagle" selected>Eagle (Tier 1)</option>
+        <option value="meridian">Meridian (Tier 1)</option>
+        <option value="star">Star (Tier 1)</option>
+        <option value="kuna">Kuna (Tier 2)</option>
+        <option value="nampa">Nampa (Tier 2)</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Property Type</label>
+      <select id="proptype">
+        <option value="vacant" selected>Vacant Land</option>
+        <option value="ag">Agricultural</option>
+        <option value="improved">Has Structures</option>
+      </select>
+    </div>
+  </div>
+  <button class="analyze-btn" onclick="runAnalysis()">⚡ Run Multi-Agent Analysis</button>
+</section>
+
+<section class="results" id="results">
+  
+  <!-- PLAN → SPLIT → BUILD Phase Indicator -->
+  <div class="phase-indicator">
+    <div class="phase" id="phase-plan">
+      <span class="phase-num">1</span>
+      <span class="phase-name">PLAN</span>
+    </div>
+    <div class="phase" id="phase-split">
+      <span class="phase-num">2</span>
+      <span class="phase-name">SPLIT</span>
+    </div>
+    <div class="phase" id="phase-build">
+      <span class="phase-num">3</span>
+      <span class="phase-name">BUILD</span>
+    </div>
+  </div>
+  
+  <!-- Verdict -->
+  <div class="verdict-card">
+    <div class="verdict-label">Final Verdict</div>
+    <div class="verdict-text" id="verdict">STRONG BUY</div>
+    <div class="verdict-action" id="action">Move fast - submit LOI</div>
+    <div class="verdict-strategy" id="strategy">DEVELOP - Maximum profit potential</div>
+  </div>
+  
+  <!-- Agent Scores -->
+  <div class="agents-section">
+    <h3 class="agents-title">🤖 Agent Analysis (Parallel Processing)</h3>
+    <div class="agents-grid">
+      <div class="agent-card">
+        <div class="agent-header">
+          <span class="agent-name">Yield Agent</span>
+          <span class="agent-score" id="yield-score">85</span>
+        </div>
+        <div class="agent-bar"><div class="agent-bar-fill" id="yield-bar" style="width: 85%"></div></div>
+        <div class="agent-verdict" id="yield-verdict">VIABLE</div>
+        <div class="agent-detail" id="yield-detail">48 lots estimated</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-header">
+          <span class="agent-name">Margin Agent</span>
+          <span class="agent-score" id="margin-score">78</span>
+        </div>
+        <div class="agent-bar"><div class="agent-bar-fill" id="margin-bar" style="width: 78%"></div></div>
+        <div class="agent-verdict" id="margin-verdict">MEETS TARGET</div>
+        <div class="agent-detail" id="margin-detail">$285K profit</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-header">
+          <span class="agent-name">Risk Agent</span>
+          <span class="agent-score" id="risk-score">70</span>
+        </div>
+        <div class="agent-bar"><div class="agent-bar-fill" id="risk-bar" style="width: 70%"></div></div>
+        <div class="agent-verdict" id="risk-verdict">LOW RISK</div>
+        <div class="agent-detail" id="risk-detail">2 risks identified</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-header">
+          <span class="agent-name">Timing Agent</span>
+          <span class="agent-score" id="timing-score">55</span>
+        </div>
+        <div class="agent-bar"><div class="agent-bar-fill" id="timing-bar" style="width: 55%"></div></div>
+        <div class="agent-verdict" id="timing-verdict">STANDARD</div>
+        <div class="agent-detail" id="timing-detail">24 months to exit</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-header">
+          <span class="agent-name">Flip Agent</span>
+          <span class="agent-score" id="flip-score">65</span>
+        </div>
+        <div class="agent-bar"><div class="agent-bar-fill" id="flip-bar" style="width: 65%"></div></div>
+        <div class="agent-verdict" id="flip-verdict">FLIP POSSIBLE</div>
+        <div class="agent-detail" id="flip-detail">$120K flip profit</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Financials -->
+  <div class="financials-section">
+    <div class="financials-grid">
+      <div class="fin-card">
+        <div class="fin-label">Est. Lots</div>
+        <div class="fin-value" id="fin-lots">48</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-label">Land Cost</div>
+        <div class="fin-value" id="fin-land">$480K</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-label">Dev Cost</div>
+        <div class="fin-value" id="fin-dev">$1.68M</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-label">Revenue</div>
+        <div class="fin-value" id="fin-revenue">$4.32M</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-label">Net Profit</div>
+        <div class="fin-value profit" id="fin-profit">$285K</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-label">ROI</div>
+        <div class="fin-value" id="fin-roi">59%</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Timeline -->
+  <div class="timeline-section">
+    <h3 class="timeline-title">📅 Project Timeline</h3>
+    <div class="timeline" id="timeline">
+      <div class="timeline-phase">
+        <div class="timeline-box">
+          <div class="timeline-name">Entitlement</div>
+          <div class="timeline-months">4 mo</div>
+        </div>
+      </div>
+      <div class="timeline-arrow"></div>
+      <div class="timeline-phase">
+        <div class="timeline-box">
+          <div class="timeline-name">Infrastructure</div>
+          <div class="timeline-months">12 mo</div>
+        </div>
+      </div>
+      <div class="timeline-arrow"></div>
+      <div class="timeline-phase">
+        <div class="timeline-box">
+          <div class="timeline-name">Sales</div>
+          <div class="timeline-months">16 mo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Risks -->
+  <div class="risks-section">
+    <h3 class="risks-title">⚠️ Risk Factors</h3>
+    <div id="risks-list">
+      <div class="risk-item medium">
+        <span class="risk-badge medium">MEDIUM</span>
+        <span class="risk-text">Large parcel - may need phasing to manage capital</span>
+      </div>
+      <div class="risk-item low">
+        <span class="risk-badge low">LOW</span>
+        <span class="risk-text">Tier 1 market - strong demand, low absorption risk</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Conflicts -->
+  <div class="conflicts-section" id="conflicts-section" style="display: none;">
+    <h3 class="conflicts-title">⚡ Agent Conflicts Detected</h3>
+    <div id="conflicts-list"></div>
+  </div>
+  
+  <!-- Training Module -->
+  <div class="training-section">
+    <div class="training-header">
+      <h2>🎓 5-Step Analysis Methodology</h2>
+      <p>Based on Solvaix multi-agent and Anthropic PLAN→SPLIT→BUILD principles</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">1</span>
+        <div class="step-title">PLAN</div>
+        <div class="step-desc">Define what the deal depends on. Identify constraints (zoning, location, capital) before any calculations begin.</div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">2</span>
+        <div class="step-title">SPLIT</div>
+        <div class="step-desc">Decompose into independent analyses. Each agent (Yield, Margin, Risk, Timing, Flip) works in parallel without knowing what others found.</div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">3</span>
+        <div class="step-title">BUILD</div>
+        <div class="step-desc">Synthesize agent outputs. Weight by importance (Margin 35%, Yield 20%, Risk 20%, Flip 15%, Timing 10%).</div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">4</span>
+        <div class="step-title">CLASH</div>
+        <div class="step-desc">Detect conflicts between agents. High yield + high risk? Good margin + slow timing? Surface these for human decision.</div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">5</span>
+        <div class="step-title">DECIDE</div>
+        <div class="step-desc">Generate actionable verdict: STRONG BUY / BUY / MAYBE / PASS. Include specific next action and recommended strategy.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+<footer>
+  <p>© 2026 Holua Group · Multi-Agent Deal Analysis v4.0</p>
+</footer>
+
+<script>
+// PLAN → SPLIT → BUILD Deal Analyzer
+// Inspired by Solvaix MEP (5 agents + synthesizer) and Anthropic Blender (hierarchy before geometry)
+
+function runAnalysis() {
+  const acres = parseFloat(document.getElementById('acres').value) || 10;
+  const price = parseFloat(document.getElementById('price').value) || 400000;
+  const zoning = document.getElementById('zoning').value;
+  const location = document.getElementById('location').value;
+  const proptype = document.getElementById('proptype').value;
+  
+  // Show results
+  document.getElementById('results').classList.add('active');
+  
+  // Animate phases
+  animatePhases();
+  
+  // ═══════════════════════════════════════════════════════════════════════════
+  // PHASE 1: PLAN — Define constraints and dependencies
+  // ═══════════════════════════════════════════════════════════════════════════
+  const constraints = {
+    minProfitTarget: 100000,
+    lotSalePrice: 90000,
+    devCostPerLot: 35000,
+    carryRate: 0.08,
+    carryMonths: 18
+  };
+  
+  const densityMap = {
+    'R-1': 2.5, 'R-2': 4, 'R-4': 5, 'R-6': 6, 'R-8': 8, 'MU': 5, 'AG': 1
+  };
+  
+  const locationTier = ['eagle', 'meridian', 'star'].includes(location) ? 1 : 
+                       ['kuna', 'nampa', 'middleton'].includes(location) ? 2 : 3;
+  
+  // ═══════════════════════════════════════════════════════════════════════════
+  // PHASE 2: SPLIT — Run 5 agents in parallel (simulated)
+  // ═══════════════════════════════════════════════════════════════════════════
+  
+  // AGENT 1: YIELD
+  const density = densityMap[zoning] || 2;
+  const estimatedLots = Math.floor(acres * density);
+  let yieldScore = estimatedLots >= 30 ? 100 : estimatedLots >= 20 ? 90 : estimatedLots >= 15 ? 80 :
+                   estimatedLots >= 10 ? 70 : estimatedLots >= 6 ? 55 : estimatedLots >= 4 ? 40 : 25;
+  const yieldVerdict = estimatedLots >= 4 ? 'VIABLE' : 'LOW YIELD';
+  
+  // AGENT 2: MARGIN
+  const landCost = price;
+  const devCost = estimatedLots * constraints.devCostPerLot;
+  const revenue = estimatedLots * constraints.lotSalePrice;
+  const carryCost = (landCost + devCost * 0.5) * constraints.carryRate * (constraints.carryMonths / 12);
+  const netProfit = revenue - landCost - devCost - carryCost;
+  const roi = landCost > 0 ? (netProfit / landCost) * 100 : 0;
+  let marginScore = netProfit >= 500000 ? 100 : netProfit >= 300000 ? 90 : netProfit >= 200000 ? 80 :
+                    netProfit >= 150000 ? 70 : netProfit >= 100000 ? 60 : netProfit >= 50000 ? 30 : 10;
+  const marginVerdict = netProfit >= 100000 ? 'MEETS TARGET' : netProfit >= 50000 ? 'MARGINAL' : 'BELOW TARGET';
+  
+  // AGENT 3: RISK
+  let riskScore = 100;
+  const risks = [];
+  if (zoning === 'AG') {
+    riskScore -= 30;
+    risks.push({ severity: 'high', text: 'Rezone required - 12-24 month timeline, uncertain outcome' });
+  }
+  if (acres > 40) {
+    riskScore -= 15;
+    risks.push({ severity: 'medium', text: 'Large parcel - may need phasing to manage capital' });
+  }
+  if (locationTier === 3) {
+    riskScore -= 10;
+    risks.push({ severity: 'low', text: 'Secondary market - longer absorption timeline' });
+  }
+  if (price / acres > 60000) {
+    riskScore -= 20;
+    risks.push({ severity: 'medium', text: `High land cost ($${Math.round(price/acres/1000)}K/ac) - thin margins` });
+  }
+  riskScore = Math.max(riskScore, 0);
+  const riskVerdict = riskScore >= 70 ? 'LOW RISK' : riskScore >= 50 ? 'MODERATE RISK' : 'HIGH RISK';
+  
+  // AGENT 4: TIMING
+  let months = 0;
+  const phases = [];
+  if (zoning === 'AG') {
+    months += 18;
+    phases.push({ name: 'Rezone', months: 18 });
+  } else {
+    months += 4;
+    phases.push({ name: 'Entitlement', months: 4 });
+  }
+  if (estimatedLots <= 10) {
+    months += 8;
+    phases.push({ name: 'Infrastructure', months: 8 });
+  } else if (estimatedLots <= 25) {
+    months += 12;
+    phases.push({ name: 'Infrastructure', months: 12 });
+  } else {
+    months += 18;
+    phases.push({ name: 'Infrastructure', months: 18 });
+  }
+  const salesMonths = Math.ceil(estimatedLots / 3);
+  months += salesMonths;
+  phases.push({ name: 'Sales', months: salesMonths });
+  
+  let timingScore = months <= 12 ? 100 : months <= 18 ? 85 : months <= 24 ? 70 : months <= 30 ? 55 : 40;
+  const timingVerdict = months <= 18 ? 'FAST EXIT' : months <= 30 ? 'STANDARD' : 'LONG HOLD';
+  
+  // AGENT 5: FLIP
+  let flipScore = 0;
+  if (proptype === 'vacant') flipScore += 30;
+  else if (proptype === 'ag') flipScore += 20;
+  else flipScore += 5;
+  
+  if (acres >= 5 && acres <= 15) flipScore += 35;
+  else if (acres > 15 && acres <= 30) flipScore += 25;
+  else flipScore += 10;
+  
+  if (['R-1', 'R-2', 'MU'].includes(zoning)) flipScore += 35;
+  else if (['R-4', 'R-6'].includes(zoning)) flipScore += 20;
+  else flipScore += 5;
+  
+  const flipPremium = flipScore >= 70 ? 0.35 : flipScore >= 50 ? 0.25 : 0.15;
+  const flipProfit = Math.round(price * flipPremium);
+  const flipVerdict = flipScore >= 70 ? 'STRONG FLIP' : flipScore >= 50 ? 'FLIP POSSIBLE' : 'DEVELOP ONLY';
+  
+  // ═══════════════════════════════════════════════════════════════════════════
+  // PHASE 3: BUILD — Synthesize weighted score and detect conflicts
+  // ═══════════════════════════════════════════════════════════════════════════
+  
+  const weights = { yield: 0.20, margin: 0.35, risk: 0.20, timing: 0.10, flip: 0.15 };
+  const finalScore = Math.round(
+    yieldScore * weights.yield +
+    marginScore * weights.margin +
+    riskScore * weights.risk +
+    timingScore * weights.timing +
+    flipScore * weights.flip
+  );
+  
+  // Conflict detection
+  const conflicts = [];
+  if (yieldScore >= 70 && riskScore < 50) {
+    conflicts.push({
+      type: 'YIELD vs RISK',
+      resolution: 'High lot yield offset by significant risks - proceed with extra due diligence'
+    });
+  }
+  if (marginScore >= 60 && timingScore < 40) {
+    conflicts.push({
+      type: 'MARGIN vs TIMING',
+      resolution: 'Strong profit potential but long timeline - ensure adequate capital reserves'
+    });
+  }
+  if (flipProfit > netProfit * 0.5 && netProfit > 0) {
+    conflicts.push({
+      type: 'FLIP vs DEVELOP',
+      resolution: `Flip profit ($${Math.round(flipProfit/1000)}K) may be better risk-adjusted than full development`
+    });
+  }
+  
+  // Final verdict
+  let verdict, action, strategy, verdictClass;
+  if (finalScore >= 75 && netProfit >= 100000) {
+    verdict = 'STRONG BUY';
+    action = 'Move fast - submit LOI';
+    verdictClass = 'strong-buy';
+  } else if (finalScore >= 60 && netProfit >= 75000) {
+    verdict = 'BUY';
+    action = 'Pursue - run full due diligence';
+    verdictClass = 'buy';
+  } else if (finalScore >= 45 || flipScore >= 70) {
+    verdict = 'MAYBE';
+    action = 'Investigate further - check comps and zoning details';
+    verdictClass = 'maybe';
+  } else {
+    verdict = 'PASS';
+    action = 'Does not meet $100K profit target';
+    verdictClass = 'pass';
+  }
+  
+  if (flipScore >= 70 && flipProfit >= 50000) {
+    strategy = 'FLIP - Quick profit, lower risk';
+  } else if (netProfit >= 200000 && riskScore >= 60) {
+    strategy = 'DEVELOP - Maximum profit potential';
+  } else if (netProfit >= 100000) {
+    strategy = 'DEVELOP (PHASED) - Manage risk with phases';
+  } else {
+    strategy = 'PASS or NEGOTIATE LOWER PRICE';
+  }
+  
+  // ═══════════════════════════════════════════════════════════════════════════
+  // UPDATE UI
+  // ═══════════════════════════════════════════════════════════════════════════
+  
+  // Verdict
+  document.getElementById('verdict').textContent = verdict;
+  document.getElementById('verdict').className = 'verdict-text ' + verdictClass;
+  document.getElementById('action').textContent = action;
+  document.getElementById('strategy').textContent = strategy;
+  
+  // Agent scores
+  updateAgent('yield', yieldScore, yieldVerdict, `${estimatedLots} lots estimated`);
+  updateAgent('margin', marginScore, marginVerdict, `$${Math.round(netProfit/1000)}K profit`);
+  updateAgent('risk', riskScore, riskVerdict, `${risks.length} risks identified`);
+  updateAgent('timing', timingScore, timingVerdict, `${months} months to exit`);
+  updateAgent('flip', flipScore, flipVerdict, `$${Math.round(flipProfit/1000)}K flip profit`);
+  
+  // Financials
+  document.getElementById('fin-lots').textContent = estimatedLots;
+  document.getElementById('fin-land').textContent = `$${Math.round(landCost/1000)}K`;
+  document.getElementById('fin-dev').textContent = `$${(devCost/1000000).toFixed(2)}M`;
+  document.getElementById('fin-revenue').textContent = `$${(revenue/1000000).toFixed(2)}M`;
+  document.getElementById('fin-profit').textContent = `$${Math.round(netProfit/1000)}K`;
+  document.getElementById('fin-profit').className = netProfit >= 100000 ? 'fin-value profit' : 'fin-value negative';
+  document.getElementById('fin-roi').textContent = `${Math.round(roi)}%`;
+  
+  // Timeline
+  const timelineHtml = phases.map((p, i) => `
+    <div class="timeline-phase">
+      <div class="timeline-box">
+        <div class="timeline-name">${p.name}</div>
+        <div class="timeline-months">${p.months} mo</div>
+      </div>
+    </div>
+    ${i < phases.length - 1 ? '<div class="timeline-arrow"></div>' : ''}
+  `).join('');
+  document.getElementById('timeline').innerHTML = timelineHtml;
+  
+  // Risks
+  const risksHtml = risks.length > 0 ? risks.map(r => `
+    <div class="risk-item ${r.severity}">
+      <span class="risk-badge ${r.severity}">${r.severity.toUpperCase()}</span>
+      <span class="risk-text">${r.text}</span>
+    </div>
+  `).join('') : '<p style="opacity: 0.6">No significant risks identified</p>';
+  document.getElementById('risks-list').innerHTML = risksHtml;
+  
+  // Conflicts
+  if (conflicts.length > 0) {
+    document.getElementById('conflicts-section').style.display = 'block';
+    document.getElementById('conflicts-list').innerHTML = conflicts.map(c => `
+      <div class="conflict-item">
+        <div class="conflict-type">${c.type}</div>
+        <div class="conflict-resolution">${c.resolution}</div>
+      </div>
+    `).join('');
+  } else {
+    document.getElementById('conflicts-section').style.display = 'none';
+  }
+  
+  // Scroll to results
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+function updateAgent(name, score, verdict, detail) {
+  document.getElementById(`${name}-score`).textContent = score;
+  document.getElementById(`${name}-bar`).style.width = `${score}%`;
+  document.getElementById(`${name}-verdict`).textContent = verdict;
+  document.getElementById(`${name}-detail`).textContent = detail;
+}
+
+function animatePhases() {
+  const phases = ['plan', 'split', 'build'];
+  phases.forEach(p => {
+    document.getElementById(`phase-${p}`).classList.remove('active', 'complete');
+  });
+  
+  setTimeout(() => {
+    document.getElementById('phase-plan').classList.add('active');
+  }, 100);
+  setTimeout(() => {
+    document.getElementById('phase-plan').classList.remove('active');
+    document.getElementById('phase-plan').classList.add('complete');
+    document.getElementById('phase-split').classList.add('active');
+  }, 600);
+  setTimeout(() => {
+    document.getElementById('phase-split').classList.remove('active');
+    document.getElementById('phase-split').classList.add('complete');
+    document.getElementById('phase-build').classList.add('active');
+  }, 1200);
+  setTimeout(() => {
+    document.getElementById('phase-build').classList.remove('active');
+    document.getElementById('phase-build').classList.add('complete');
+  }, 1800);
+}
+
+// Run initial analysis on load
+window.onload = () => runAnalysis();
+</script>
+
+</body>
+</html>
